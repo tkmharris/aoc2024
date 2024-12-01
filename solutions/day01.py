@@ -1,8 +1,14 @@
 from collections import defaultdict
+from utils.solver import Solver
 
-class Solver:
-    def __init__(self, input_file="input01.txt"):
-        self.input_file = input_file
+class Day1(Solver):
+    """
+    NOTES:
+    After doing the obvious thing I re-implemented part 1 using a pair
+    of heaps to avoid another pass through the input to sort, but a 
+    benchmark revealed the input isn't big enough for the savings to 
+    cancel out the heap overheads.
+    """
 
     def part1(self, input_file=None):
         if input_file is None:
@@ -43,9 +49,7 @@ class Solver:
             for left in left_column
         )
 
-
-if __name__=='__main__':
-    solver = Solver()
-
+if __name__=="__main__":
+    solver = Day1("input01.txt")
     print(solver.part1())
     print(solver.part2())
