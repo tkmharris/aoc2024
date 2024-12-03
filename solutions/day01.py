@@ -1,7 +1,8 @@
 from collections import defaultdict
 from utils.solver import Solver
+from utils.input import read_input
 
-class Day1(Solver):
+class Day01(Solver):
     """
     NOTES:
     After doing the obvious thing I re-implemented part 1 using a pair
@@ -10,17 +11,15 @@ class Day1(Solver):
     cancel out the heap overheads.
     """
 
-    def part1(self, input_file=None):
-        if input_file is None:
-            input_file = self.input_file
-
+    @read_input(lines=True)
+    def part1(self, lines) -> int:
         left_column = []
         right_column = []
-        with open(input_file, 'r') as file:
-            for line in file:
-                left, right = map(int, line.strip().split())
-                left_column.append(left)
-                right_column.append(right)
+
+        for line in lines:
+            left, right = map(int, line.strip().split())
+            left_column.append(left)
+            right_column.append(right)
 
         left_column.sort()
         right_column.sort()
@@ -30,19 +29,15 @@ class Day1(Solver):
             for left, right in zip(left_column, right_column)
         )
 
-
-    def part2(self, input_file=None):
-        if input_file is None:
-            input_file = self.input_file
-
+    @read_input(lines=True)
+    def part2(self, lines):
         left_column = []
         right_column = defaultdict(int)
 
-        with open(input_file, 'r') as file:
-            for line in file:
-                left, right = map(int, line.strip().split())
-                left_column.append(left)
-                right_column[right] += 1
+        for line in lines:
+            left, right = map(int, line.strip().split())
+            left_column.append(left)
+            right_column[right] += 1
 
         return sum(
             left * right_column[left]
@@ -50,6 +45,6 @@ class Day1(Solver):
         )
 
 if __name__=="__main__":
-    solver = Day1("input01.txt")
+    solver = Day01("input01.txt")
     print(solver.part1())
     print(solver.part2())

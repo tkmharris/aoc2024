@@ -1,13 +1,13 @@
 import pytest
-from solutions.day01 import Day1
+from solutions.day01 import Day01
 
 @pytest.fixture
 def example_solver():
-    return Day1("example01.txt")
+    return Day01("example01.txt")
 
 @pytest.fixture
 def puzzle_solver():
-    return Day1("input01.py")
+    return Day01("input01.py")
 
 def test_example_part1(example_solver):
     result = example_solver.part1()
