@@ -11,7 +11,7 @@ class Day01(Solver):
     cancel out the heap overheads.
     """
 
-    @read_input(lines=True)
+    @read_input("lines")
     def part1(self, lines) -> int:
         left_column = []
         right_column = []
@@ -29,7 +29,7 @@ class Day01(Solver):
             for left, right in zip(left_column, right_column)
         )
 
-    @read_input(lines=True)
+    @read_input("lines")
     def part2(self, lines):
         left_column = []
         right_column = defaultdict(int)

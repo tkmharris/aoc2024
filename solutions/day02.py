@@ -17,7 +17,7 @@ def safe(levels: list[int]) -> bool:
     )
 
 class Day02(Solver):
-    @read_input(lines=True)
+    @read_input("lines")
     def part1(self, lines) -> int:
         safe_reports = 0
         
@@ -28,7 +28,7 @@ class Day02(Solver):
 
         return safe_reports
 
-    @read_input(lines=True)
+    @read_input("lines")
     def part2(self, lines) -> int:
         def safe_with_dampener(levels):
             if safe(levels):

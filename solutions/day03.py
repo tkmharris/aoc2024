@@ -3,7 +3,7 @@ from utils.solver import Solver
 from utils.input import read_input
 
 class Day03(Solver):
-    @read_input(lines=False)
+    @read_input("string")
     def part1(self, input_string) -> int:
         matches = re.finditer(r'mul\((\d+),(\d+)\)', input_string)
         return sum(
@@ -11,7 +11,7 @@ class Day03(Solver):
             for match in matches
         )
 
-    @read_input(lines=False)
+    @read_input("string")
     def part2(self, input_string) -> int:
         matches = re.finditer(r'do\(\)|don\'t\(\)|mul\((\d+),(\d+)\)', input_string)
         result = 0
