@@ -5,7 +5,7 @@ class InputFormat(Enum):
     LINES = "lines"
     GRID = "grid"
 
-def read_input(format: InputFormat):
+def read_input(format: str):
     def decorator(func):
         def wrapper(self, input_file=None, *args, **kwargs):
             if input_file is None:
