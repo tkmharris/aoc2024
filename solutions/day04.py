@@ -1,15 +1,15 @@
-import re
+"""
+NOTES:
+I don't really like the difference in approach between part 1 and part 2 here.
+Part 2 was easier so my part 1 is probably a bad approach. Iterating over all
+starting locations and looking for XMASs starting in each direction felt hacky
+though.
+"""
+
 from utils.solver import Solver
 from utils.input import read_input
 
 class Day04(Solver):
-    """
-    NOTES:
-    I don't really like the difference in approach between part 1 and part 2 here.
-    Part 2 was easier so my part 1 is probably a bad approach. Iterating over all
-    starting locations and looking for XMASs starting in each direction felt hacky
-    though.
-    """
     @read_input("grid")
     def part1(self, grid) -> int:
         # Assume input is rectangular
