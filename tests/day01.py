@@ -1,5 +1,6 @@
 import pytest
 from solutions.day01 import Day01
+from utils.solutions import solution
 
 @pytest.fixture
 def example_solver():
@@ -11,20 +12,20 @@ def puzzle_solver():
 
 def test_example_part1(example_solver):
     result = example_solver.part1()
-    expected = 11
+    expected = solution(1, "example", 1)
     assert result == expected
 
 def test__example_part2(example_solver):
     result = example_solver.part2()
-    expected = 31
+    expected = solution(1, "example", 2)
     assert result == expected
 
 def test_puzzle_part1(puzzle_solver):
     result = puzzle_solver.part1()
-    expected = 2756096
+    expected = solution(1, "puzzle", 1)
     assert result == expected
 
 def test_puzzle_part2(puzzle_solver):
     result = puzzle_solver.part2()
-    expected = 23117829
+    expected = solution(1, "puzzle", 2)
     assert result == expected

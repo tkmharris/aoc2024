@@ -1,0 +1,62 @@
+{
+    "day01": {
+        "example": {
+            "part1": 11,
+            "part2": 31
+        },
+        "puzzle": {
+            "part1": 2756096,
+            "part2": 23117829
+        }
+    },
+    "day02": {
+        "example": {
+            "part1": 2,
+            "part2": 4
+        },
+        "puzzle": {
+            "part1": 411,
+            "part2": 465
+        }
+    },
+    "day03": {
+        "example": {
+            "part1": 161,
+            "part2": 48
+        },
+        "puzzle": {
+            "part1": 164730528,
+            "part2": 70478672
+        }
+    },
+    "day04": {
+        "example": {
+            "part1": 18,
+            "part2": 9
+        },
+        "puzzle": {
+            "part1":2591,
+            "part2": 1880
+        }
+    },
+    "day05": {
+        "example": {
+            "part1": 143,
+            "part2": 123
+        },
+        "puzzle": {
+            "part1": 4814,
+            "part2": 5448
+        }
+    },
+    "day06": {
+        "example": {
+            "part1": 41,
+            "part2": 6
+        },
+        "puzzle": {
+            "part1": 4663,
+            "part2": 1530
+        }
+    }
+}
