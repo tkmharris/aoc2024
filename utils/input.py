@@ -18,7 +18,7 @@ def read_input(format: str):
                     case InputFormat.LINES.value:
                         content = file.readlines()
                     case InputFormat.GRID.value:
-                        content = [list(line) for line in file.readlines()]
+                        content = [list(line.strip('\n')) for line in file.readlines()]
                     case _:
                         raise ValueError(f"Unrecognized input format: {format}")
             
