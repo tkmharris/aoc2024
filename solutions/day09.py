@@ -1,91 +1,92 @@
 from dataclasses import dataclass
+from typing import Generator
 from utils.solver import Solver
 from utils.input import read_input
-
-def swap(lst, i, j):
-    lst[i], lst[j] = lst[j], lst[i]
-
     
 class Day09(Solver):
-    @read_input("string")
-    def part1(self, input_string) -> int: 
-        file_blocks = []
-        file_mode = True
-        id_number = 0
-        for block_size in map(int, input_string):
-            if file_mode:
-                file_blocks.extend([id_number] * block_size)
-                id_number += 1
-            else:
-                file_blocks.extend([None] * block_size)
-            file_mode = not file_mode
+    def chunks(self, disk_map: list[int]) -> Generator[tuple[int, int]]:
+        if len(disk_map) % 2 == 1:
+            disk_map.append(0)
+        for i in range(0, len(disk_map), 2):
+            yield tuple(disk_map[i:i + 2])
 
-        left, right = 0, len(file_blocks) - 1
-        while left < right:
-            if file_blocks[left] is not None:
-                left += 1
-                continue
-            
-            if file_blocks[right] is not None:
-                file_blocks[left] = file_blocks[right]
-                file_blocks[right] = None
-                left += 1
-                
-            right -= 1
 
-        return sum(
-            position * value 
-            for position, value in enumerate(file_blocks)
-            if value is not None
-        )
-
-    
-    @dataclass
-    class Block:
-        id: int | None
-        starts_at: int
-        length: int
-    
-    @read_input("string")
-    def part2(self, input_string) -> int: 
-        blocks = []
-        blanks = []
-        file_mode = True
-        id_number = 0
-        position = 0
-        for block_size in map(int, input_string):
-            if file_mode:
-                block = self.Block(id=id_number, starts_at=position, length=block_size)
-                blocks.append(block)
-                id_number += 1
-            else:
-                block = self.Block(id=None, starts_at=position, length=block_size)
-                blanks.append(block)
-            
-            position += block_size
-            file_mode = not file_mode
-
-        for block in blocks[::-1]:
-            for blank in blanks:
-                if blank.starts_at < block.starts_at and blank.length >= block.length:
-                    blanks.append(
-                        self.Block(id=None, starts_at=block.starts_at, length=block.length)
-                    )
-                    block.starts_at = blank.starts_at
-                    blank.length -= block.length
-                    blank.starts_at += block.length
-                    break
-        
-        filesystem = []
-        sorted_blocks = sorted(blocks + blanks, key=lambda block: block.starts_at)
-        for block in sorted_blocks:
-            filesystem.extend([block.id] * block.length)
-            
+    def checksum(self, filesystem: list[int | None]) -> int:
         return sum(
             position * value 
             for position, value in enumerate(filesystem)
             if value is not None
         )
+    
+
+    @read_input("string")
+    def part1(self, input_string: str) -> int: 
+        disk_map = list(map(int, input_string))
+        filesystem = []
+        
+        for file_id, (block_size, blank_size) in enumerate(self.chunks(disk_map)):
+            filesystem.extend([file_id] * block_size)
+            filesystem.extend([None] * blank_size)
+
+        left, right = 0, len(filesystem) - 1
+        while left < right:
+            if filesystem[left] is not None:
+                left += 1
+                continue
+            
+            if filesystem[right] is not None:
+                filesystem[left] = filesystem[right]
+                filesystem[right] = None
+                left += 1
+                
+            right -= 1
+
+        return self.checksum(filesystem)
+    
+    
+    @read_input("string")
+    def part2(self, input_string) -> int: 
+        # For storing details of file/blank block.
+        @dataclass
+        class Block:
+            id: int | None
+            starts_at: int
+            size: int
+        
+        # Create arrays of file blocks and blank blocks from input.
+        disk_map = list(map(int, input_string))
+        filesystem_position = 0
+        file_blocks = []
+        blank_blocks = []
+        
+        for file_id, (block_size, blank_size) in enumerate(self.chunks(disk_map)):
+            file_blocks.append(
+                Block(id=file_id, starts_at=filesystem_position, size=block_size)
+            )
+            blank_blocks.append(
+                Block(id=None, starts_at=filesystem_position + block_size, size=blank_size)
+            )
+            filesystem_position += (block_size + blank_size)
+        
+        # Move file blocks earlier where possible.
+        for block in file_blocks[::-1]:
+            for blank in blank_blocks:
+                if blank.starts_at < block.starts_at and blank.size >= block.size:
+                    blank_blocks.append(
+                        Block(id=None, starts_at=block.starts_at, size=block.size)
+                    )
+                    block.starts_at = blank.starts_at
+                    blank.size -= block.size
+                    blank.starts_at += block.size
+                    break
+        
+        # Build filesystem layout from blocks and blanks.
+        filesystem = []
+        for block in sorted(file_blocks + blank_blocks, key=lambda block: block.starts_at):
+            filesystem.extend([block.id] * block.size)
+            
+        return self.checksum(filesystem)
+
 
 if __name__=="__main__":
     solver = Day09("input09.txt")
