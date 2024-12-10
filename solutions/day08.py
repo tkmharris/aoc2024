@@ -1,36 +1,16 @@
 from utils.solver import Solver
 from utils.input import read_input
-from dataclasses import dataclass
+from utils.structures import Vector2D
 from collections import defaultdict
 import string
 from itertools import combinations
 from math import gcd
-
-@dataclass
-class Vector:
-    x: int
-    y: int
-
-    def __add__(self, other):
-        return Vector(self.x + other.x, self.y + other.y)
-    
-    def __sub__(self, other):
-        return Vector(self.x - other.x, self.y - other.y)
-    
-    def __eq__(self, other):
-        return (self.x == other.x) and (self.y == other.y)
-
-    def __hash__(self):
-        # overriding __eq__ forces us to override __hash__
-        # if we want to hash
-        return hash((self.x, self.y)) 
-
     
 class Day08(Solver):
     @read_input("grid")
     def part1(self, input_grid) -> int: 
         grid = {
-            Vector(x, y): input_grid[y][x]
+            Vector2D(x, y): input_grid[y][x]
             for x in range(len(input_grid[0])) 
             for y in range(len(input_grid))
         }
@@ -56,7 +36,7 @@ class Day08(Solver):
     @read_input("grid")
     def part2(self, input_grid) -> int:
         grid = {
-            Vector(x, y): input_grid[y][x]
+            Vector2D(x, y): input_grid[y][x]
             for x in range(len(input_grid[0])) 
             for y in range(len(input_grid))
         }
@@ -69,7 +49,7 @@ class Day08(Solver):
         for symbol in list(string.ascii_letters + string.digits):
             for antenna1, antenna2 in combinations(antenna_locations[symbol], 2):
                 diff = antenna2 - antenna1
-                min_diff = Vector(
+                min_diff = Vector2D(
                     diff.x // gcd(diff.x, diff.y),
                     diff.y // gcd(diff.x, diff.y)
                 )

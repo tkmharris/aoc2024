@@ -1,30 +1,15 @@
 from utils.solver import Solver
 from utils.input import read_input
-from dataclasses import dataclass
+from utils.structures import Vector2D
 
-@dataclass
-class Vector:
-    x: int
-    y: int
-
-    def __add__(self, other):
-        return Vector(self.x + other.x, self.y + other.y)
-    
-    def __eq__(self, other):
-        return (self.x == other.x) and (self.y == other.y)
-
-    def __hash__(self):
-        # overriding __eq__ forces us to override __hash__
-        # if we want to hash
-        return hash((self.x, self.y)) 
 
 DIRECTION_POINTERS = {
     # ^ and v look like they're the wrong way around but they're not:
     # the grid is y-indexed from top to bottom.
-    '^': Vector(0, -1),
-    '>': Vector(1, 0),
-    'v': Vector(0, 1),
-    '<': Vector(-1, 0),
+    '^': Vector2D(0, -1),
+    '>': Vector2D(1, 0),
+    'v': Vector2D(0, 1),
+    '<': Vector2D(-1, 0),
 }
 
 class Guard:
@@ -38,14 +23,14 @@ class Guard:
         return self.position + self.direction
     
     def turn(self):
-        if self.direction == Vector(0, -1):
-            self.direction = Vector(1, 0)
-        elif self.direction == Vector(1, 0):
-            self.direction = Vector(0, 1)
-        elif self.direction == Vector(0, 1):
-            self.direction = Vector(-1, 0)
-        elif self.direction == Vector(-1, 0):
-            self.direction = Vector(0, -1)
+        if self.direction == Vector2D(0, -1):
+            self.direction = Vector2D(1, 0)
+        elif self.direction == Vector2D(1, 0):
+            self.direction = Vector2D(0, 1)
+        elif self.direction == Vector2D(0, 1):
+            self.direction = Vector2D(-1, 0)
+        elif self.direction == Vector2D(-1, 0):
+            self.direction = Vector2D(0, -1)
     
     def step(self):
         self.position += self.direction
@@ -58,7 +43,7 @@ class Guard:
 class Day06(Solver):
     def setup_grid_guard(self, input_grid):
         grid = {
-            Vector(x, y): input_grid[y][x]
+            Vector2D(x, y): input_grid[y][x]
             for x in range(len(input_grid[0])) 
             for y in range(len(input_grid))
         }
