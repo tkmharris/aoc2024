@@ -5,4 +5,5 @@
 * Run scripts for days?
 * Revisit Day 5?
 * Tidy up day 7.
-* Tidy up day 9 with some classes.
+* Add proper type hints.
+* Tidy up day 10.
