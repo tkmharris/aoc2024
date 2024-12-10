@@ -14,7 +14,7 @@ def read_input(format: str):
             with open(input_file, 'r') as file:
                 match format:
                     case InputFormat.STRING.value:
-                        content = file.read()
+                        content = file.read().strip()
                     case InputFormat.LINES.value:
                         content = file.readlines()
                     case InputFormat.GRID.value:
