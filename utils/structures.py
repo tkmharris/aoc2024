@@ -17,4 +17,11 @@ class Vector2D:
     def __hash__(self):
         # overriding __eq__ forces us to override __hash__
         # if we want to hash
-        return hash((self.x, self.y)) 
+        return hash((self.x, self.y))
+
+UNIT_DIRECTIONS = [
+    Vector2D(1, 0),
+    Vector2D(-1, 0),
+    Vector2D(0, 1),
+    Vector2D(0, -1),
+]

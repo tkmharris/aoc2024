@@ -7,3 +7,4 @@
 * Tidy up day 7.
 * Add proper type hints.
 * Tidy up day 10.
+* Find a better solution for day 12. See notes.
