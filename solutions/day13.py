@@ -21,10 +21,10 @@ def _cost(A: int, B: int) -> int:
 
 
 def _solve_simultaneous_equations_in_nonnegative_integers(
-        # represents a_x * A + b_x * B = prize_x
-        a_x: int, b_x: int, prize_x: int,
-        # represents a_y * A + b_y * B = prize_y
-        a_y: int, b_y: int, prize_y: int 
+    # represents a_x * A + b_x * B = prize_x
+    a_x: int, b_x: int, prize_x: int,
+    # represents a_y * A + b_y * B = prize_y
+    a_y: int, b_y: int, prize_y: int 
 ) -> tuple[int, int] | None:
     det = a_x * b_y - a_y * b_x
     # Luckily for us, all the equations in the input have unique solutions.
