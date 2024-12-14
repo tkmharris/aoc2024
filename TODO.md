@@ -8,3 +8,4 @@
 * Add proper type hints.
 * Tidy up day 10.
 * Find a better solution for day 12. See notes.
+* Revisit day 14 using a variance check.

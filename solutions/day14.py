@@ -1,3 +1,12 @@
+"""
+NOTES:
+I'm not really happy with this. The chi-squared test is a bit ad hoc
+and even with a high threshold I still have to page through quite a lot
+of configurations manually to find the Christmas tree. Maybe it would be
+better to just look at the variance? Keep an ongoing average of the variance 
+so far and stop if it differs by a lot?
+"""
+
 from utils.solver import Solver
 from utils.input import read_input
 from dataclasses import dataclass
