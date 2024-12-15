@@ -16,7 +16,7 @@ def read_input(format: str):
                     case InputFormat.STRING.value:
                         content = file.read().strip()
                     case InputFormat.LINES.value:
-                        content = file.readlines()
+                        content = [line.strip('\n') for line in file.readlines()]
                     case InputFormat.GRID.value:
                         content = [list(line.strip('\n')) for line in file.readlines()]
                     case _:

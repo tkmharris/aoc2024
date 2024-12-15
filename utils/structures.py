@@ -11,6 +11,9 @@ class Vector2D:
     def __sub__(self, other):
         return Vector2D(self.x - other.x, self.y - other.y)
     
+    def __rmul__(self, number):
+        return Vector2D(self.x * number, self.y * number)
+    
     def __eq__(self, other):
         return (self.x == other.x) and (self.y == other.y)
 
