@@ -15,12 +15,13 @@ class Vector2D:
         return Vector2D(self.x * number, self.y * number)
     
     def __eq__(self, other):
-        return (self.x == other.x) and (self.y == other.y)
+        return isinstance(other, Vector2D) and (self.x == other.x) and (self.y == other.y)
 
     def __hash__(self):
         # overriding __eq__ forces us to override __hash__
         # if we want to hash
         return hash((self.x, self.y))
+
 
 UNIT_DIRECTIONS = [
     Vector2D(1, 0),
