@@ -27,10 +27,10 @@ class Day19(Solver):
             if pattern in towels or pattern == '':
                 return True
             
-            for towel in towels:
-                if pattern.startswith(towel) and possible_pattern(pattern[len(towel):]):
-                    return True
-            return False
+            return any(
+                pattern.startswith(towel) and possible_pattern(pattern[len(towel):])
+                for towel in towels
+            )
         
         return sum(
             possible_pattern(pattern)
@@ -48,13 +48,11 @@ class Day19(Solver):
             if pattern in towels:
                 arrangements += 1
             
-            for towel in towels:
-                if pattern == towel or not pattern.startswith(towel):
-                    continue
-
-                arrangements += possible_arrangements(pattern[len(towel):])
-            
-            return arrangements
+            return arrangements + sum(
+                possible_arrangements(pattern[len(towel):])
+                for towel in towels
+                if pattern != towel and pattern.startswith(towel)
+            )
         
         return sum(
             possible_arrangements(pattern)
