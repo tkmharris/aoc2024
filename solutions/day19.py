@@ -49,7 +49,7 @@ class Day19(Solver):
                 arrangements += 1
             
             for towel in towels:
-                if not pattern.startswith(towel):
+                if pattern == towel or not pattern.startswith(towel):
                     continue
 
                 arrangements += possible_arrangements(pattern[len(towel):])
