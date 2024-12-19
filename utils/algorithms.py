@@ -1,11 +1,35 @@
 
-from collections import defaultdict
+from collections import defaultdict, deque
 from dataclasses import dataclass, field
 import heapq
-from typing import TypeVar, Dict, Any, Generic
+from typing import TypeVar, Dict, List, Generic
 
 
 T = TypeVar('T')
+
+
+def bfs_distance(graph: Dict[T, List[T]], start: T, end: T) -> int | None:
+    distances = defaultdict(int)
+    distances[start] = 0
+    queue = deque([start])
+    
+    while queue:
+        node = queue.popleft()
+        
+        for neighbour in graph[node]:
+            
+            if distances[neighbour] > 0:
+                continue
+            
+            distances[neighbour] = distances[node] + 1
+            if neighbour not in queue:
+                queue.append(neighbour)
+
+        if distances[end] > 0:
+            return distances[end]
+    
+    return None
+    
 
 
 def dijkstra(graph: Dict[T, Dict[T, int]], start: T) -> dict[T, int]:
