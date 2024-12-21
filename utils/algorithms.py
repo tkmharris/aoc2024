@@ -8,7 +8,12 @@ from typing import TypeVar, Dict, List, Generic
 T = TypeVar('T')
 
 
-def bfs_distance(graph: Dict[T, List[T]], start: T, end: T) -> int | None:
+def bfs_distance(
+        graph: Dict[T, List[T]],
+        start: T,
+        end: T | None = None,
+    ) -> Dict[T, int] | int | None:
+
     distances = defaultdict(int)
     distances[start] = 0
     queue = deque([start])
@@ -25,14 +30,16 @@ def bfs_distance(graph: Dict[T, List[T]], start: T, end: T) -> int | None:
             if neighbour not in queue:
                 queue.append(neighbour)
 
-        if distances[end] > 0:
+        if end and distances[end] > 0:
             return distances[end]
     
+    if not end:
+        return distances
     return None
     
 
 
-def dijkstra(graph: Dict[T, Dict[T, int]], start: T) -> dict[T, int]:
+def dijkstra(graph: Dict[T, Dict[T, int]], start: T, end: T | None) -> dict[T, int]:
     # This is a sub-optimal implementation of Dijkstra.
     # If really pressed for performance we could implement
     # a full priority queue with heapq.)
@@ -60,6 +67,8 @@ def dijkstra(graph: Dict[T, Dict[T, int]], start: T) -> dict[T, int]:
     
     while queue:
         node = heapq.heappop(queue).item
+        if end and node == end:
+            return distances[node]
 
         # We wouldn't need this if we had a proper priority queue
         if node in visited:
@@ -78,4 +87,6 @@ def dijkstra(graph: Dict[T, Dict[T, int]], start: T) -> dict[T, int]:
                     queue, QueueItem(priority=distance, item=neighbour)
                 )
 
-    return distances
+        if not end:
+            return distances
+        return None
