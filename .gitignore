@@ -1,6 +1,7 @@
 # Do not distribute AoC copyright material
 inputs/*
 !inputs/.gitkeep
+tests/solutions.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
