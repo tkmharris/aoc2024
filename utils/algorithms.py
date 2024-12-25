@@ -39,13 +39,12 @@ def bfs_distance(
     
 
 
-def dijkstra(graph: Dict[T, Dict[T, int]], start: T, end: T | None) -> dict[T, int]:
+def dijkstra(graph: Dict[T, Dict[T, int]], start: T) -> dict[T, int]:
     # This is a sub-optimal implementation of Dijkstra.
     # If really pressed for performance we could implement
     # a full priority queue with heapq.)
     distances = defaultdict(lambda: float('inf'))
     distances[start] = 0
-
     @dataclass(order=True)
     class QueueItem(Generic[T]):
         priority: float
@@ -67,9 +66,6 @@ def dijkstra(graph: Dict[T, Dict[T, int]], start: T, end: T | None) -> dict[T, i
     
     while queue:
         node = heapq.heappop(queue).item
-        if end and node == end:
-            return distances[node]
-
         # We wouldn't need this if we had a proper priority queue
         if node in visited:
             continue
@@ -86,7 +82,4 @@ def dijkstra(graph: Dict[T, Dict[T, int]], start: T, end: T | None) -> dict[T, i
                 heapq.heappush(
                     queue, QueueItem(priority=distance, item=neighbour)
                 )
-
-        if not end:
-            return distances
-        return None
+    return distances

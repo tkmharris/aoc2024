@@ -74,6 +74,7 @@ class Day16(Solver):
 
         return maze, start, end
 
+
     @read_input("grid")
     def part1(self, input_grid: list[list[str]]) -> int:
         maze, start, end = self.setup_maze(input_grid)
@@ -81,11 +82,11 @@ class Day16(Solver):
         return distances[start]
 
 
-    @read_input("lines")
+    @read_input("grid")
     def part2(self, input_grid: list[list[str]]) -> int:
         maze, start, end = self.setup_maze(input_grid)
         
-        # Tiles on an optimal path are those for whom the distance from 
+        # Tiles on _an_ optimal path are those for whom the distance from 
         # the start to the tile plus the distance from the end to the 
         # tile equals the length of the optimal path.
         distances_from_start = dijkstra(maze, start)
